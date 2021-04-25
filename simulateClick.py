@@ -1,6 +1,7 @@
 from selenium import webdriver
 from lxml import etree
 import time
+from io import BytesIO
 
 browser = webdriver.Safari()
 browser.implicitly_wait(10)
@@ -17,10 +18,13 @@ time.sleep(1)
 browser.find_element_by_xpath("""//*[@id="casLoginForm"]/p[4]/button""").click()
 time.sleep(1)
 source = browser.page_source
-# print(source)
 html = etree.fromstring(source)  # A fucking bug from nowhere
-# html.xpath("""""")
-print(html)
+html = etree.HTML(source)
+print(html.xpath("//*"))
+# parse = etree.HTMLParser(encoding="UTF-8")
+# page = etree.parse(html, parser=parse)
+print('\n\n\n\n')
+print(html.text)
 time.sleep(5)
 browser.quit()
 
